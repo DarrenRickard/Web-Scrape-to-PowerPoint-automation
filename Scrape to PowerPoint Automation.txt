@@ -1,0 +1,36 @@
+AAFES Furniture Book
+
+CLI/GUI tool to scrape ShopMyExchange.com for item data by CRC# and automate PowerPoint slide creation.
+
+Ideally, I want to send an HTTP Request to ShopMyExchange.com to search for the item by CRC#
+
+Libraries to use:
+	BeautifulSoup
+	requests
+	Pyautogui
+	webbrowser (this library is based on opening an actual browser and is bot-ish)
+	time (for sleep, avoid automation detection)
+
+Issues:
+	Find out how to go to website and make a search query in the search bar for the CRC#
+
+~important html tags to scrape
+
+<h1 class='aafes-page-head'>
+	Copy inner text as Item Title and insert to PP slide
+
+<img class='jsFeaturedImage' src='link to jpg image'> 
+	Copy the src value as image and insert to PP slide
+
+<span class='product-desc'>
+	Copy inner text as product description and insert to PP slide
+
+<li>
+	Copy inner text as additional product description and insert to PP Slide
+
+<tr>
+	Create dict of all <tr> with their <th> & <td> 
+	if "Consumer Item {height}" in <th> 
+	extract <td>.innerText as "Consumer Item {height}: <td>.innerText
+
+	
