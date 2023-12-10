@@ -33,4 +33,6 @@ Issues:
 	if "Consumer Item {height}" in <th> 
 	extract <td>.innerText as "Consumer Item {height}: <td>.innerText
 
-	
+
+# 10-DEC-2023
+	Scraping of data completed.
