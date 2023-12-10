@@ -8,7 +8,7 @@ Libraries to use:
 	BeautifulSoup
 	requests
 	Pyautogui
-	webbrowser (this library is based on opening an actual browser and is bot-ish)
+	pptx import Presentation
 	time (for sleep, avoid automation detection)
 
 Issues:

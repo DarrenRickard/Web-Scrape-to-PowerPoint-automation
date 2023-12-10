@@ -23,7 +23,7 @@ print(itemTitle)
 # Item Image
 itemImage = soup.find('img', class_ = 'jsFeaturedImage')
 imageURL = itemImage['src'] # Import this to PPSlide
-print(homePage + imageURL)
+imageURL = (homePage + imageURL)
 
 
 # Item Description 
