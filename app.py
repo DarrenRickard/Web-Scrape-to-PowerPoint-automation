@@ -1,49 +1,60 @@
 from bs4 import BeautifulSoup
 import requests
-# from string import Template
+import sys
 
+def scrape_data():
+    HOME_PAGE = 'https://www.shopmyexchange.com'
+    CRC = ''
+    COMPUTERS = ['macbook', 'laptop', 'notebook', 'pc']
+    while True:
+        try:
+            CRC = int(input("CRC#: "))
+            break
+        except ValueError:
+            print("Invalid input. Please enter numbers only.")
 
-homePage = 'https://www.shopmyexchange.com'
-crc = ''
-while True:
+    url = f'https://www.shopmyexchange.com/browse?query={CRC}'
+    page = requests.get(url)
+    soup = BeautifulSoup(page.text, 'html.parser')
+
     try:
-        crc = int(input("CRC#: "))
-        break
-    except ValueError:
-        print("Invalid input. Please enter numbers only.")
-
-url = f'https://www.shopmyexchange.com/browse?query={crc}'
-page = requests.get(url)
-soup = BeautifulSoup(page.text, 'html.parser')
-
-# Item Title
-itemTitle = soup.find('h1', class_ = 'aafes-page-head').text # Import this to PPSlide
-print(itemTitle)
-
-# Item Image
-itemImage = soup.find('img', class_ = 'jsFeaturedImage')
-imageURL = itemImage['src'] # Import this to PPSlide
-imageURL = (homePage + imageURL)
+        # Item Title
+        itemTitle = soup.find('h1', class_ = 'aafes-page-head').text
 
 
-# Item Description 
-itemDescList = soup.find_all('span', class_ = 'product-desc')
-cleanDescList = []
-for desc in itemDescList:
-    cleanDescList.append(desc.text.strip())
-
-for desc in cleanDescList: 
-    print(desc) # Import each desc to PPSlide
+        # Item Image
+        itemImage = soup.find('img', class_ = 'jsFeaturedImage')
+        imageURL = itemImage['src']
+        imageURL = (HOME_PAGE + imageURL)
 
 
-# Dimensions List 
-dimList = soup.find_all('tr')
-newDimList = []
-for tag in dimList:
-    # print(tag.text)
-    if "Consumer Item" in tag.text:
-        newDimList.append(tag.text.strip())
+        # Item Description
+        if any(word in itemTitle.lower() for word in COMPUTERS):
+            tmpDescList = soup.find_all('span', class_ = 'product-desc')
+            itemDescList = []
+            for desc in tmpDescList:
+                itemDescList.append(desc.text.strip())
+        else:
+            itemDescList = []
 
-for dim in newDimList:
-    print(dim) # Import each dim to PPSlide
 
+        # Dimensions List
+        if not any(word in itemTitle.lower() for word in COMPUTERS):
+            tmpDimList = soup.find_all('tr')
+            dimList = []
+            for tag in tmpDimList:
+                # print(tag.text)
+                if "Consumer Item" in tag.text:
+                    dimList.append(tag.text.strip())
+        else:
+            dimList = []
+
+
+        return itemTitle, imageURL, itemDescList, dimList, CRC
+    except Exception as e:
+        print(f'Error: {e}')
+        sys.exit()
+
+
+if __name__ == "__main__":
+    itemTitle, imageURL, itemDescList, dimList = scrape_data()
