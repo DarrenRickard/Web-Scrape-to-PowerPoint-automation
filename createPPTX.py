@@ -1,6 +1,5 @@
 from pptx import Presentation
 from pptx.util import Inches
-from pptx.enum.shapes import MSO_SHAPE_TYPE
 from app import scrape_data, get_slide_count
 import requests
 from io import BytesIO
@@ -9,11 +8,11 @@ PRS_NAME = 'Presentation.pptx'
 SLD_LAYOUT_TITLE_AND_CONTENT = 1
 SLD_LAYOUT_TITLE_PIC_TEXT = 8
 LOGO_URL = 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/AAFES_Redesigned_Logo_2011-vector.svg/2560px-AAFES_Redesigned_Logo_2011-vector.svg.png'
+
 slide_count = get_slide_count()
 for i in range(slide_count):
     try:
         itemTitle, imageURL, itemDescList, dimList, CRC = scrape_data()
-
 
         def download_image(url):
             response = requests.get(url)
@@ -72,4 +71,5 @@ for i in range(slide_count):
     except Exception:
         print("Item not found. Skipping...")
         continue
+    
 print(f"{PRS_NAME} created!")

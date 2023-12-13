@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-import sys
 
 HOME_PAGE = 'https://www.shopmyexchange.com'
 COMPUTERS = ['macbook', 'laptop', 'notebook', 'pc', 'desktop']
@@ -15,7 +14,6 @@ def get_slide_count():
     return slide_count
 
 def scrape_data():
-    
     CRC = ''
     
     while True:
@@ -33,12 +31,10 @@ def scrape_data():
         # Item Title
         itemTitle = soup.find('h1', class_ = 'aafes-page-head').text
 
-
         # Item Image
         itemImage = soup.find('img', class_ = 'jsFeaturedImage')
         imageURL = itemImage['src']
         imageURL = (HOME_PAGE + imageURL)
-
 
         # Item Description
         if any(word in itemTitle.lower() for word in COMPUTERS):
@@ -48,7 +44,6 @@ def scrape_data():
                 itemDescList.append(desc.text.strip())
         else:
             itemDescList = []
-
 
         # Dimensions List
         if not any(word in itemTitle.lower() for word in COMPUTERS):
