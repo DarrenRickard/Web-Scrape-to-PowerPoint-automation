@@ -36,3 +36,9 @@ Issues:
 
 # 10-DEC-2023
 	Scraping of data completed.
+
+# 12-DEC-2023
+	PowerPoint presentation and slide creation completed.
+
+# 14-DEC-2023
+	Multiple slide creation based on user input completed.
