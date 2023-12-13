@@ -2,10 +2,22 @@ from bs4 import BeautifulSoup
 import requests
 import sys
 
+HOME_PAGE = 'https://www.shopmyexchange.com'
+COMPUTERS = ['macbook', 'laptop', 'notebook', 'pc', 'desktop']
+
+def get_slide_count():
+    while True:
+        try:
+            slide_count = int(input("How many slides do you want to make? "))
+            break
+        except ValueError:
+            print("Invalid input. Please enter numbers only.")
+    return slide_count
+
 def scrape_data():
-    HOME_PAGE = 'https://www.shopmyexchange.com'
+    
     CRC = ''
-    COMPUTERS = ['macbook', 'laptop', 'notebook', 'pc']
+    
     while True:
         try:
             CRC = int(input("CRC#: "))
@@ -49,11 +61,10 @@ def scrape_data():
         else:
             dimList = []
 
-
         return itemTitle, imageURL, itemDescList, dimList, CRC
     except Exception as e:
-        print(f'Error: {e}')
-        sys.exit()
+        # print(f'Error: {e}')
+        return
 
 
 if __name__ == "__main__":
